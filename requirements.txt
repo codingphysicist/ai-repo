@@ -1,0 +1,8 @@
+requests
+openai
+lizard
+pygments
+python-dotenv
+tqdm
+numpy
+faiss-cpu
