@@ -1,0 +1,369 @@
+{
+  "repo": "buggedcom/pluginobject",
+  "health_score": 35.83,
+  "breakdown": {
+    "commits_score": 0.0,
+    "issue_score": 0.0,
+    "popularity_score": 0.25,
+    "code_quality_score": 63.16,
+    "contributor_score": 0.0,
+    "maintenance_score": 100.0
+  },
+  "complexity": {
+    "functions": [
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\pluginobject.js",
+        "name": "Array.prototype.inArray",
+        "complexity": 4,
+        "nloc": 11
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\pluginobject.js",
+        "name": "register",
+        "complexity": 1,
+        "nloc": 4
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\pluginobject.js",
+        "name": "commit",
+        "complexity": 2,
+        "nloc": 5
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\pluginobject.js",
+        "name": "parse",
+        "complexity": 3,
+        "nloc": 11
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\pluginobject.js",
+        "name": "call",
+        "complexity": 6,
+        "nloc": 10
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\divx.js",
+        "name": "create",
+        "complexity": 5,
+        "nloc": 11
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\divx.js",
+        "name": "detectVersion",
+        "complexity": 9,
+        "nloc": 34
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\flash.js",
+        "name": "create",
+        "complexity": 13,
+        "nloc": 34
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\flash.js",
+        "name": "]",
+        "complexity": 1,
+        "nloc": 1
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\flash.js",
+        "name": "(anonymous)",
+        "complexity": 5,
+        "nloc": 16
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\flash.js",
+        "name": "detectVersion",
+        "complexity": 23,
+        "nloc": 98
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\flashmedia.js",
+        "name": "create",
+        "complexity": 24,
+        "nloc": 45
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\quicktime.js",
+        "name": "create",
+        "complexity": 12,
+        "nloc": 20
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\quicktime.js",
+        "name": "detectVersion",
+        "complexity": 8,
+        "nloc": 34
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\realplayer.js",
+        "name": "create",
+        "complexity": 11,
+        "nloc": 17
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\realplayer.js",
+        "name": "detectVersion",
+        "complexity": 9,
+        "nloc": 26
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\shockwave.js",
+        "name": "create",
+        "complexity": 3,
+        "nloc": 9
+      },
+      {
+        "filename": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_sny5iukq\\plugins\\shockwave.js",
+        "name": "detectVersion",
+        "complexity": 5,
+        "nloc": 16
+      }
+    ],
+    "avg_complexity": 8.0,
+    "max_complexity": 24,
+    "function_count": 18
+  },
+  "similarity": [
+    {
+      "file": "pluginobject.js",
+      "chunk_preview": "Array.prototype.inArray = function(s) \n{\n\tvar i = this.length;\n\tif (i > 0)\n\t{\n\t\tdo {\n\t\t\tif (this[i] === s) return true;\n\t\t} while (i--);\n\t}\n\treturn false;\n};\n\n// create object\nPO = {\ntist : (new Date())\n};\n// create reference object for keeping track of placeholder callbacks\nPO.R = {};\n// create reference object for keeping track of callbacks.\nPO.C = {\n\t_c: {},\n\tregister: function()\n\t{\n\t\t\n\t},\n\tcommit: function(n, a)\n\t{\n\t\tif(d._f[i].s) return d._f[i].s[d._f[i].f].apply(d._f[i].s, a);\n\t\telse return d._f[i].f.apply(d._f[i], a);\n\t}\n};\n\n// file extension maps used for automagically translating files\n// It should be noted that the looping order will start with Flash and work it's way down\n// through the list, so you should list the plugins in order of priority because\n// most plugins can handle ",
+      "top_matches": [
+        {
+          "score": 0.5214276313781738,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        },
+        {
+          "score": 0.43684035539627075,
+          "meta": {
+            "repo": "https://github.com/twbs/bootstrap",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+            "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap button.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport BaseComponent from './base-component.js'\nimport EventHandler from './dom/event-handler.js'\nimport { defineJQueryPlugin } from './util/index.js'\n\n/**\n * Constants\n */"
+          }
+        },
+        {
+          "score": 0.4356524646282196,
+          "meta": {
+            "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\app.ts",
+            "snippet": "import { randomBytes } from 'crypto';\nimport fastifyAccepts from '@fastify/accepts';\nimport fastifySwagger from '@fastify/swagger';\nimport fastifySwaggerUI from '@fastify/swagger-ui';\nimport type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';\nimport uriResolver from 'fast-uri';\nimport Fastify, {\n  FastifyBaseLogger,\n  FastifyHttpOptions,\n  FastifyInstance,\n  RawReplyDefaultExpression,\n  RawRequestDefaultExpression,\n  RawServerDefault\n} from 'fastify';\nimport { Ajv } from 'ajv';\nimport addFormats from 'ajv-formats';\n\nimport prismaPlugin from './db/prisma.js';\nimport cookies from './plugins/cookies.js';\nimport cors from './plugins/cors.js';\nimport { NodemailerProvider } from './plugins/mail-providers/nodemailer.js';\nimport { SESProvider } from './plugins/mail-providers/ses.js"
+          }
+        }
+      ]
+    },
+    {
+      "file": "plugins\\divx.js",
+      "chunk_preview": "PO.L.DivX = {\n\t\n\toptions:  {\n\t\tupgrade_url\t\t\t: 'http://go.divx.com/plugin/download/',\n\t\tclass_id\t\t\t: 'clsid:67DABFBF-D0AB-41fa-9C46-CC0F21721616',\n\t\tcodebase\t\t\t: 'http://go.divx.com/plugin/DivXBrowserPlugin.cab',\n\t\tmime_type\t\t\t: 'video/divx'\n\t},\n\t\n// \tscripting sdk avaiable here\n// \thttp://download.divx.com/player/DivXWebPlayer_WebmasterSDK.zip\n\tparams: {\n// \t\tmode \t\t\t\t\t: null, // null, zero, mini, large, full\n// \t\tminVersion \t\t\t\t: '0.0.0',\n// \t\tallowContextMenu \t\t: true,\n// \t\tautoPlay\t\t\t\t: false,\n// \t\tloop\t\t\t\t\t: false,\n// \t\tbannerEnabled\t\t\t: false,\n// \t\tbufferingMode\t\t\t: 'auto', // null, auto, full\n// \t\tpreviewImage\t\t\t: null,\n// \t\tpreviewMessage\t\t\t: '',\n// \t\tpreviewMessageFontSize\t: 12,\n// \t\tmovieTitle\t\t\t\t: null\n\t}, \n\tattributes: {},\n\t\n\tcreate: function(src, o, p)\n\t{\n\t\to = PO.U.merge(o, P",
+      "top_matches": [
+        {
+          "score": 0.44066452980041504,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        },
+        {
+          "score": 0.3673429489135742,
+          "meta": {
+            "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\db\\prisma.ts",
+            "snippet": "const prismaPlugin: FastifyPluginAsync = fp(async (server, _options) => {\n  const prisma = extendClient(\n    new PrismaClient({\n      datasources: {\n        db: {\n          url: MONGOHQ_URL\n        }\n      }\n    })\n  );\n\n  await prisma.$connect();\n\n  server.decorate('prisma', prisma);\n\n  server.addHook('onClose', async server => {\n    await server.prisma.$disconnect();\n  });\n});\n\n// TODO: It would be nice to split this up into multiple update functions,\n//       but the types are a pain.\n// TODO: Multiple extended clients can be used for different restrictions (e.g. session vs non-session users)\n// TODO: Could be used to add other _easily forgotten_ fields like `progressTimestamp`"
+          }
+        },
+        {
+          "score": 0.3617873787879944,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\defaultStore.ts",
+            "snippet": "const index = `\\\nexport default function MyApp() {\n  return <div>Hello World</div>;\n}\n`;\n\nexport const defaultConfig = `\\\nimport type { PluginOptions } from 'babel-plugin-react-compiler/dist';\n\n({\n  //compilationMode: \"all\"\n} satisfies PluginOptions);`;\n\nexport const defaultStore: Store = {\n  source: index,\n  config: defaultConfig,\n  showInternals: false,\n};\n\nexport const emptyStore: Store = {\n  source: '',\n  config: '',\n  showInternals: false,\n};"
+          }
+        }
+      ]
+    },
+    {
+      "file": "plugins\\flash.js",
+      "chunk_preview": "PO.M.Debug.OnExpressInstall = 'PluginObject: Flash Player version \"%ver%\" is outdated. Version \"%verreq%\" is required. Running express install.';\nPO.L.Flash = {\n\t\n\toptions: {\n\t\tupgrade_url\t\t\t: 'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash',\n\t\tclass_id\t\t\t: 'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000',\n\t\tcodebase\t\t\t: 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,115,0',\n\t\tmime_type\t\t\t: 'application/x-shockwave-flash',\n\t\tquality\t\t\t\t: 'high',\n\t\tbgcolor\t\t\t\t: null,\n\t\tbgcolour\t\t\t: null,\n\t\tuse_express_install\t: false,\n\t\tdo_express_install\t: false,\n\t\texpress_install_swf\t: 'plugins/flash/expressinstall.swf'\n\t},\n\t\n\tvariables: {}, // these are flashvars\n\t\n// \tbest docs\n// \thttp://kb.adobe.com/selfservice/viewContent.do?externalI",
+      "top_matches": [
+        {
+          "score": 0.4303779602050781,
+          "meta": {
+            "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\app.ts",
+            "snippet": "const ajv = new Ajv({\n  coerceTypes: 'array', // change data type of data to match type keyword\n  useDefaults: true, // replace missing properties and items with the values from corresponding default keyword\n  removeAdditional: true, // remove additional properties\n  uriResolver,\n  addUsedSchema: false,\n  // Explicitly set allErrors to `false`.\n  // When set to `true`, a DoS attack is possible.\n  allErrors: false\n});\n\n// add the default formatters from avj-formats\naddFormats.default(ajv);\najv.addFormat('objectid', {\n  type: 'string',\n  validate: (str: string) => isObjectID(str)\n});\n\nexport const buildOptions: FastifyHttpOptions<\n  RawServerDefault,\n  FastifyBaseLogger\n> = {\n  loggerInstance: getLogger(),\n  genReqId: () => randomBytes(8).toString('hex'),\n  // disabled so we can customise th"
+          }
+        },
+        {
+          "score": 0.42499834299087524,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        },
+        {
+          "score": 0.4239368438720703,
+          "meta": {
+            "repo": "https://github.com/twbs/bootstrap",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+            "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap alert.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport BaseComponent from './base-component.js'\nimport EventHandler from './dom/event-handler.js'\nimport { enableDismissTrigger } from './util/component-functions.js'\nimport { defineJQueryPlugin } from './util/index.js'\n\n/**\n * Constants\n */"
+          }
+        }
+      ]
+    },
+    {
+      "file": "plugins\\flashmedia.js",
+      "chunk_preview": "// uses http://www.jeroenwijering.com/?item=JW_FLV_Media_Player\nPO.L.FlashMedia = {\n\t\n\toptions:{\n\t\tplayer\t\t\t\t\t\t: 'plugins/flash/mediaplayer.swf',\n\t\tauto_fix_path \t\t\t\t: true, // fixes the src path so it is treated as relative to the html document. only applies if the src url doesn't contain http at the start of the url\n\t\tauto_fix_fullscreen \t\t: true, // fixes the fullscreen so that it is singley determined by variables.showfsbutton\n\t\tauto_adjust_display_height \t: true, // auto adjust the display height by 20px so the bar shows at the bottom of the flash movie\n\t\tuse_type_mapping\t\t\t: true  // automagically maps file extensions to specifc types.\n\t},\n// \tfor more information on the variables you should use this page http://www.jeroenwijering.com/?item=Supported_Flashvars\n\tvariables\t: {\n\t\twidth\t",
+      "top_matches": [
+        {
+          "score": 0.43677857518196106,
+          "meta": {
+            "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\app.ts",
+            "snippet": "import { randomBytes } from 'crypto';\nimport fastifyAccepts from '@fastify/accepts';\nimport fastifySwagger from '@fastify/swagger';\nimport fastifySwaggerUI from '@fastify/swagger-ui';\nimport type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';\nimport uriResolver from 'fast-uri';\nimport Fastify, {\n  FastifyBaseLogger,\n  FastifyHttpOptions,\n  FastifyInstance,\n  RawReplyDefaultExpression,\n  RawRequestDefaultExpression,\n  RawServerDefault\n} from 'fastify';\nimport { Ajv } from 'ajv';\nimport addFormats from 'ajv-formats';\n\nimport prismaPlugin from './db/prisma.js';\nimport cookies from './plugins/cookies.js';\nimport cors from './plugins/cors.js';\nimport { NodemailerProvider } from './plugins/mail-providers/nodemailer.js';\nimport { SESProvider } from './plugins/mail-providers/ses.js"
+          }
+        },
+        {
+          "score": 0.425228476524353,
+          "meta": {
+            "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\app.ts",
+            "snippet": "const ajv = new Ajv({\n  coerceTypes: 'array', // change data type of data to match type keyword\n  useDefaults: true, // replace missing properties and items with the values from corresponding default keyword\n  removeAdditional: true, // remove additional properties\n  uriResolver,\n  addUsedSchema: false,\n  // Explicitly set allErrors to `false`.\n  // When set to `true`, a DoS attack is possible.\n  allErrors: false\n});\n\n// add the default formatters from avj-formats\naddFormats.default(ajv);\najv.addFormat('objectid', {\n  type: 'string',\n  validate: (str: string) => isObjectID(str)\n});\n\nexport const buildOptions: FastifyHttpOptions<\n  RawServerDefault,\n  FastifyBaseLogger\n> = {\n  loggerInstance: getLogger(),\n  genReqId: () => randomBytes(8).toString('hex'),\n  // disabled so we can customise th"
+          }
+        },
+        {
+          "score": 0.4212425947189331,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        }
+      ]
+    },
+    {
+      "file": "plugins\\quicktime.js",
+      "chunk_preview": "PO.L.Quicktime = {\n\t\n\toptions: {\n\t\tupgrade_url\t\t\t: 'http://www.apple.com/quicktime/download/',\n\t\tclass_id\t\t\t: 'clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B',\n\t\tcodebase\t\t\t: 'http://www.apple.com/qtactivex/qtplugin.cab',\n\t\tmime_type\t\t\t: 'video/quicktime',\n\t\tauto_adjust_display_height : true,\n\t\tbgcolor\t\t\t\t: null,\n\t\tbgcolour\t\t\t: null\n\t},\n\t\n// \tbest info\n// http://developer.apple.com/documentation/QuickTime/Conceptual/QTScripting_HTML/QTScripting_HTML_Document/chapter_1000_section_5.html#//apple_ref/doc/uid/TP40001525-2-QuickTimeltEMBEDgtandltOBJECTgtParameters\n\tparams: {\n// \t\tallowembedtagoverrides \t: true,\n// \t\tautohref \t\t\t\t: false,\n// \t\tautoplay \t\t\t\t: false,\n// \t\tbgcolor \t\t\t\t: '#ffffff',\n// \t\tcontroller \t\t\t\t: true,\n// \t\tcorrection \t\t\t\t: 'none',\n// \t\tdontflattenwhensaving \t: true,\n// \t\tenableh",
+      "top_matches": [
+        {
+          "score": 0.4106123447418213,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        },
+        {
+          "score": 0.3825135827064514,
+          "meta": {
+            "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\schemas.ts",
+            "snippet": "export { getPublicProfile } from './schemas/users/get-public-profile.js';\nexport { userExists } from './schemas/users/exists.js';\nexport { certSlug } from './schemas/certificate/cert-slug.js';\nexport { certificateVerify } from './schemas/certificate/certificate-verify.js';\nexport { backendChallengeCompleted } from './schemas/challenge/backend-challenge-completed.js';\nexport { coderoadChallengeCompleted } from './schemas/challenge/coderoad-challenge-completed.js';\nexport { exam } from './schemas/challenge/exam.js';\nexport { examChallengeCompleted } from './schemas/challenge/exam-challenge-completed.js';\nexport { dailyCodingChallengeCompleted } from './schemas/challenge/daily-coding-challenge-completed.js';\nexport { modernChallengeCompleted } from './schemas/challenge/modern-challenge-comple"
+          }
+        },
+        {
+          "score": 0.377816766500473,
+          "meta": {
+            "repo": "https://github.com/twbs/bootstrap",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+            "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap button.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport BaseComponent from './base-component.js'\nimport EventHandler from './dom/event-handler.js'\nimport { defineJQueryPlugin } from './util/index.js'\n\n/**\n * Constants\n */"
+          }
+        }
+      ]
+    },
+    {
+      "file": "plugins\\realplayer.js",
+      "chunk_preview": "PO.L.RealPlayer = {\n\t\n\toptions: {\n\t\tupgrade_url\t: 'http://www.real.com/',\n\t\tclass_id\t: 'clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA',\n\t\tmime_type\t: 'audio/x-pn-realaudio-plugin',\n\t\tbgcolor\t\t: null,\n\t\tbgcolour\t: null\n\t},\n\t\n// \tbest info available \n// \thttp://www.w3schools.com/media/media_realvideo.asp\n\tparams: {\n// \t\tbackgroundcolor : null,\n// \t\tcenter \t\t\t: 'true',\n// \t\tcontrols\t\t: 'All', //  see below\n// \t\tconsole\t\t\t: null,\n// \t\tautostart \t\t: false,\n// \t\tnolabels \t\t: false,\n// \t\treset \t\t\t: false,\n// \t\tautogotoURL\t\t: null\t\n\t},\n\tattributes: {},\n/*\t\n\tAll\t\t\t\t\t- Displays a full player with all controls.\n\tInfoVolumePanel\t\t- Title, author, and copyright and volume slider.\n\tInfoPanel\t\t\t- Title, author, and copyright.\n\tControlPanel\t\t- Position slider, play, pause, and stop buttons.\n\tStatusPanel\t\t\t- ",
+      "top_matches": [
+        {
+          "score": 0.41348177194595337,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        },
+        {
+          "score": 0.3850969076156616,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\stores\\store.ts",
+            "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nimport invariant from 'invariant';\nimport {\n  compressToEncodedURIComponent,\n  decompressFromEncodedURIComponent,\n} from 'lz-string';\nimport {defaultStore, defaultConfig} from '../defaultStore';\n\n/**\n * Global Store for Playground\n */\nexport interface Store {\n  source: string;\n  config: string;\n  showInternals: boolean;\n}\nexport function encodeStore(store: Store): string {\n  return compressToEncodedURIComponent(JSON.stringify(store));\n}\nexport function decodeStore(hash: string): any {\n  return JSON.parse(decompressFromEncodedURIComponent(hash));\n}\n\n/**\n * Serialize, encode, and save @param store to lo"
+          }
+        },
+        {
+          "score": 0.3728625774383545,
+          "meta": {
+            "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\app.ts",
+            "snippet": "import { randomBytes } from 'crypto';\nimport fastifyAccepts from '@fastify/accepts';\nimport fastifySwagger from '@fastify/swagger';\nimport fastifySwaggerUI from '@fastify/swagger-ui';\nimport type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';\nimport uriResolver from 'fast-uri';\nimport Fastify, {\n  FastifyBaseLogger,\n  FastifyHttpOptions,\n  FastifyInstance,\n  RawReplyDefaultExpression,\n  RawRequestDefaultExpression,\n  RawServerDefault\n} from 'fastify';\nimport { Ajv } from 'ajv';\nimport addFormats from 'ajv-formats';\n\nimport prismaPlugin from './db/prisma.js';\nimport cookies from './plugins/cookies.js';\nimport cors from './plugins/cors.js';\nimport { NodemailerProvider } from './plugins/mail-providers/nodemailer.js';\nimport { SESProvider } from './plugins/mail-providers/ses.js"
+          }
+        }
+      ]
+    },
+    {
+      "file": "plugins\\shockwave.js",
+      "chunk_preview": "PO.L.Shockwave = {\n\t\n\toptions: {\n\t\tupgrade_url\t\t\t: 'http://www.adobe.com/shockwave/download/',\n\t\tclass_id\t\t\t: 'clsid:166B1BCA-3F9C-11CF-8075-44455354000',\n\t\tcodebase\t\t\t: 'http://download.macromedia.com/pub/shockwave/cabs/director/sw.cab',\n\t\tmime_type\t\t\t: 'application/x-director'\n\t},\n\t\n\tparams: {}, \n\tattributes: {},\n\t\n\tcreate: function(src, o, p)\n\t{\n\t\to = PO.U.merge(o, PO.L.Shockwave.options);\n\t\t\n\t\to.params = PO.U.merge(o.params || {}, PO.L.Shockwave.params);\n\t\to.attributes = PO.U.merge(o.attributes || {}, PO.L.Shockwave.attributes);\n\t\t\n\t\treturn new ObjectEmbed(src, o, PO.L.Shockwave, p);\n\t},\n\t\n\t_installed_version: false,\n\tdetectVersion: function(o, rv)\n\t{\n\t\tif(PO.L.Shockwave._installed_version) return PO.L.Shockwave._installed_version;\n\t\tvar pv = new PO.U.PlayerVersion([0,0,0]);\n\t\tif (navi",
+      "top_matches": [
+        {
+          "score": 0.4127682149410248,
+          "meta": {
+            "repo": "https://github.com/twbs/bootstrap",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+            "snippet": "class Alert extends BaseComponent {\n  // Getters\n  static get NAME() {\n    return NAME\n  }\n\n  // Public\n  close() {\n    const closeEvent = EventHandler.trigger(this._element, EVENT_CLOSE)\n\n    if (closeEvent.defaultPrevented) {\n      return\n    }\n\n    this._element.classList.remove(CLASS_NAME_SHOW)\n\n    const isAnimated = this._element.classList.contains(CLASS_NAME_FADE)\n    this._queueCallback(() => this._destroyElement(), this._element, isAnimated)\n  }\n\n  // Private\n  _destroyElement() {\n    this._element.remove()\n    EventHandler.trigger(this._element, EVENT_CLOSED)\n    this.dispose()\n  }\n\n  // Static\n  static jQueryInterface(config) {\n    return this.each(function () {\n      const data = Alert.getOrCreateInstance(this)\n\n      if (typeof config !== 'string') {\n        return\n      }\n\n  "
+          }
+        },
+        {
+          "score": 0.3906973600387573,
+          "meta": {
+            "repo": "https://github.com/twbs/bootstrap",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+            "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap alert.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport BaseComponent from './base-component.js'\nimport EventHandler from './dom/event-handler.js'\nimport { enableDismissTrigger } from './util/component-functions.js'\nimport { defineJQueryPlugin } from './util/index.js'\n\n/**\n * Constants\n */"
+          }
+        },
+        {
+          "score": 0.38088107109069824,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        }
+      ]
+    },
+    {
+      "file": "plugins\\windowsmediaplayer.js",
+      "chunk_preview": "PO.L.WindowsMediaPlayer = {\n\t\n\toptions: {\n\t\tupgrade_url\t\t\t: PO.U.Browser.Linux ? 'http://www.videolan.org/vlc/' : (PO.U.Platform.Apple ? 'http://www.flip4mac.com/wmv_download.htm' : 'http://www.microsoft.com/windows/windowsmedia/download/AllDownloads.aspx'),\n\t\tclass_id\t\t\t: 'clsid:22D6f312-B0F6-11D0-94AB-0080C74C7E95',\n\t\tcodebase\t\t\t: 'http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab',\n\t\tmime_type\t\t\t: {\n\t\t\t'audio/x-pn-realaudio-plugin' : []\n\t\t},\n\t\tbgcolor\t\t\t\t: null,\n\t\tbgcolour\t\t\t: null\n\t},\n\t\n\tparams: {\n// \t\tAudioStream\t\t\t\t: true,\t \n// \t\tAutoSize\t\t\t\t: true,\t \n// \t\tAutoStart\t\t\t\t: true,\t// Sets if the player should start automatically\n// \t\tAnimationAtStart\t\t: true,\t// Sets if an animation should show while the file loads\n// \t\tAllowScan\t\t\t\t: true,\t \n// \t\tAllowChangeDisplaySi",
+      "top_matches": [
+        {
+          "score": 0.4065789580345154,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+            "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+          }
+        },
+        {
+          "score": 0.3631337285041809,
+          "meta": {
+            "repo": "https://github.com/facebook/react",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\stores\\store.ts",
+            "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nimport invariant from 'invariant';\nimport {\n  compressToEncodedURIComponent,\n  decompressFromEncodedURIComponent,\n} from 'lz-string';\nimport {defaultStore, defaultConfig} from '../defaultStore';\n\n/**\n * Global Store for Playground\n */\nexport interface Store {\n  source: string;\n  config: string;\n  showInternals: boolean;\n}\nexport function encodeStore(store: Store): string {\n  return compressToEncodedURIComponent(JSON.stringify(store));\n}\nexport function decodeStore(hash: string): any {\n  return JSON.parse(decompressFromEncodedURIComponent(hash));\n}\n\n/**\n * Serialize, encode, and save @param store to lo"
+          }
+        },
+        {
+          "score": 0.3601168990135193,
+          "meta": {
+            "repo": "https://github.com/twbs/bootstrap",
+            "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+            "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap button.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport BaseComponent from './base-component.js'\nimport EventHandler from './dom/event-handler.js'\nimport { defineJQueryPlugin } from './util/index.js'\n\n/**\n * Constants\n */"
+          }
+        }
+      ]
+    }
+  ]
+}

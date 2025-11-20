@@ -1,0 +1,492 @@
+[
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\app.ts",
+    "snippet": "import { randomBytes } from 'crypto';\nimport fastifyAccepts from '@fastify/accepts';\nimport fastifySwagger from '@fastify/swagger';\nimport fastifySwaggerUI from '@fastify/swagger-ui';\nimport type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';\nimport uriResolver from 'fast-uri';\nimport Fastify, {\n  FastifyBaseLogger,\n  FastifyHttpOptions,\n  FastifyInstance,\n  RawReplyDefaultExpression,\n  RawRequestDefaultExpression,\n  RawServerDefault\n} from 'fastify';\nimport { Ajv } from 'ajv';\nimport addFormats from 'ajv-formats';\n\nimport prismaPlugin from './db/prisma.js';\nimport cookies from './plugins/cookies.js';\nimport cors from './plugins/cors.js';\nimport { NodemailerProvider } from './plugins/mail-providers/nodemailer.js';\nimport { SESProvider } from './plugins/mail-providers/ses.js"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\app.ts",
+    "snippet": "const ajv = new Ajv({\n  coerceTypes: 'array', // change data type of data to match type keyword\n  useDefaults: true, // replace missing properties and items with the values from corresponding default keyword\n  removeAdditional: true, // remove additional properties\n  uriResolver,\n  addUsedSchema: false,\n  // Explicitly set allErrors to `false`.\n  // When set to `true`, a DoS attack is possible.\n  allErrors: false\n});\n\n// add the default formatters from avj-formats\naddFormats.default(ajv);\najv.addFormat('objectid', {\n  type: 'string',\n  validate: (str: string) => isObjectID(str)\n});\n\nexport const buildOptions: FastifyHttpOptions<\n  RawServerDefault,\n  FastifyBaseLogger\n> = {\n  loggerInstance: getLogger(),\n  genReqId: () => randomBytes(8).toString('hex'),\n  // disabled so we can customise th"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\instrument.ts",
+    "snippet": "import * as Sentry from '@sentry/node';\nimport type { FastifyError } from 'fastify';\n\nimport {\n  DEPLOYMENT_VERSION,\n  SENTRY_DSN,\n  SENTRY_ENVIRONMENT\n} from './utils/env.js';"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\instrument.ts",
+    "snippet": "const shouldIgnoreError = (error: FastifyError): boolean => {\n  return !!error.statusCode && error.statusCode < 500;\n};\n\n// Ensure to call this before importing any other modules!\nSentry.init({\n  dsn: SENTRY_DSN,\n  environment: SENTRY_ENVIRONMENT,\n  maxValueLength: 8192, // the default is 250, which is too small.\n  release: DEPLOYMENT_VERSION,\n  beforeSend: (event, hint) =>\n    shouldIgnoreError(hint.originalException as FastifyError) ? null : event\n});"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\reset.d.ts",
+    "snippet": "import '@total-typescript/ts-reset';"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\schema.test.ts",
+    "snippet": "import { describe, test, expect } from 'vitest';\nimport secureSchema from 'ajv/lib/refs/json-schema-secure.json' with { type: 'json' };\nimport { Ajv } from 'ajv';\n\nimport * as schemas from './schemas.js';\n\n// it's not strict, but that's okay - we're not using it to validate data"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\schema.test.ts",
+    "snippet": "const ajv = new Ajv({ strictTypes: false });"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\schema.test.ts",
+    "snippet": "const isSchemaSecure = ajv.compile(secureSchema);\n\n// These schemas will fail the tests, so can only be checked by hand."
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\schema.test.ts",
+    "snippet": "const ignoredSchemas = ['getSessionUser', 'getPublicProfile'];\n\ndescribe('Schemas do not use obviously dangerous validation', () => {\n  Object.entries(schemas)\n    .filter(([schema]) => !ignoredSchemas.includes(schema))\n    .forEach(([name, schema]) => {\n      describe(`schema ${name}`, () => {\n        if ('body' in schema) {\n          test('body is secure', () => {\n            expect(isSchemaSecure(schema.body)).toBeTruthy();\n          });\n        }\n\n        if ('querystring' in schema) {\n          test('querystring is secure', () => {\n            expect(isSchemaSecure(schema.querystring)).toBeTruthy();\n          });\n        }\n\n        test('should use querystring instead of query', () => {\n          // if query is used then req.query is unknown, but if querystring is\n          // used th"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\schemas.ts",
+    "snippet": "export { getPublicProfile } from './schemas/users/get-public-profile.js';\nexport { userExists } from './schemas/users/exists.js';\nexport { certSlug } from './schemas/certificate/cert-slug.js';\nexport { certificateVerify } from './schemas/certificate/certificate-verify.js';\nexport { backendChallengeCompleted } from './schemas/challenge/backend-challenge-completed.js';\nexport { coderoadChallengeCompleted } from './schemas/challenge/coderoad-challenge-completed.js';\nexport { exam } from './schemas/challenge/exam.js';\nexport { examChallengeCompleted } from './schemas/challenge/exam-challenge-completed.js';\nexport { dailyCodingChallengeCompleted } from './schemas/challenge/daily-coding-challenge-completed.js';\nexport { modernChallengeCompleted } from './schemas/challenge/modern-challenge-comple"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\server.test.ts",
+    "snippet": "import { describe, test, expect, vi } from 'vitest';\nimport { setupServer, superRequest } from '../vitest.utils.js';\nimport { HOME_LOCATION } from './utils/env.js';\n\nvi.mock('./utils/env', async importOriginal => {\n  const actual = await importOriginal<typeof import('./utils/env.js')>();\n  return {\n    ...actual,\n    COOKIE_DOMAIN: 'freecodecamp.org'\n  };\n});\n\ndescribe('server', () => {\n  setupServer();\n\n  describe('GET /', () => {\n    test('should have OWASP recommended headers', async () => {\n      const res = await superRequest('/', { method: 'GET' });\n      expect(res.headers).toMatchObject({\n        'cache-control': 'no-store',\n        'content-security-policy': \"frame-ancestors 'none'\",\n        'content-type': 'application/json; charset=utf-8',\n        'x-content-type-options': 'nosn"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\server.ts",
+    "snippet": "import './instrument.js';\n\nimport { build, buildOptions } from './app.js';\nimport { HOST, PORT } from './utils/env.js';"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\server.ts",
+    "snippet": "const start = async () => {\n  const fastify = await build(buildOptions);\n\n  const stop = async (signal: NodeJS.Signals) => {\n    fastify.log.info(`Received ${signal}, shutting down.`);\n    await fastify.close();\n    fastify.log.info('Shutdown complete');\n    process.exit(0);\n  };\n\n  process.on('SIGINT', signal => void stop(signal));\n  process.on('SIGTERM', signal => void stop(signal));\n\n  try {\n    const port = Number(PORT);\n    fastify.log.info(`Starting server on port ${port}`);\n    await fastify.listen({ port, host: HOST });\n  } catch (err) {\n    fastify.log.error(err);\n    process.exit(1);\n  }\n};\n\nvoid start();"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\db\\extensions.test.ts",
+    "snippet": "import { describe, it, expect, beforeEach, afterAll } from 'vitest';\nimport { defaultUserEmail, setupServer } from '../../vitest.utils.js';\n\nimport { createUserInput } from '../utils/create-user.js';\n\ndescribe('prisma client extensions', () => {\n  setupServer();\n\n  beforeEach(async () => {\n    await fastifyTestInstance.prisma.user.deleteMany({\n      where: { email: defaultUserEmail }\n    });\n  });\n\n  afterAll(async () => {\n    await fastifyTestInstance.prisma.user.deleteMany({\n      where: { email: defaultUserEmail }\n    });\n  });\n\n  describe('updateCount', () => {\n    it('should default to 0', async () => {\n      const user = await fastifyTestInstance.prisma.user.create({\n        data: createUserInput(defaultUserEmail)\n      });\n\n      expect(user).toMatchObject({\n        updateCount: 0\n "
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\db\\prisma.ts",
+    "snippet": "import fp from 'fastify-plugin';\nimport { FastifyPluginAsync } from 'fastify';\nimport { PrismaClient } from '@prisma/client';\n\n// importing MONGOHQ_URL so we can mock it in testing.\nimport { MONGOHQ_URL } from '../utils/env.js';\n\ndeclare module 'fastify' {\n  interface FastifyInstance {\n    prisma: ReturnType<typeof extendClient>;\n  }\n}"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\db\\prisma.ts",
+    "snippet": "const prismaPlugin: FastifyPluginAsync = fp(async (server, _options) => {\n  const prisma = extendClient(\n    new PrismaClient({\n      datasources: {\n        db: {\n          url: MONGOHQ_URL\n        }\n      }\n    })\n  );\n\n  await prisma.$connect();\n\n  server.decorate('prisma', prisma);\n\n  server.addHook('onClose', async server => {\n    await server.prisma.$disconnect();\n  });\n});\n\n// TODO: It would be nice to split this up into multiple update functions,\n//       but the types are a pain.\n// TODO: Multiple extended clients can be used for different restrictions (e.g. session vs non-session users)\n// TODO: Could be used to add other _easily forgotten_ fields like `progressTimestamp`"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\db\\prisma.ts",
+    "snippet": "function extendClient(prisma: PrismaClient) {\n  return prisma.$extends({\n    query: {\n      user: {\n        async update({ args, query }) {\n          args.data.updateCount = { increment: 1 };\n          return query(args);\n        },\n        async updateMany({ args, query }) {\n          args.data.updateCount = { increment: 1 };\n          return query(args);\n        },\n        async upsert({ args, query }) {\n          args.update.updateCount = { increment: 1 };\n          return query(args);\n        }\n        // NOTE: raw ops are untouched, as it is meant to be a direct passthrough to mongodb\n        // async findRaw({ model, operation, args, query }) {}\n        // async aggregateRaw({ model, operation, args, query }) {}\n      }\n    }\n  });\n}\n\nexport default prismaPlugin;"
+  },
+  {
+    "repo": "https://github.com/freeCodeCamp/freeCodeCamp",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_otxhb31q\\api\\src\\plugins\\auth-dev.test.ts",
+    "snippet": "import {\n  describe,\n  test,\n  expect,\n  beforeAll,\n  beforeEach,\n  afterAll\n} from 'vitest';\nimport Fastify, { FastifyInstance } from 'fastify';\n\nimport { checkCanConnectToDb, defaultUserEmail } from '../../vitest.utils.js';\nimport { HOME_LOCATION } from '../utils/env.js';\nimport { devAuth } from '../plugins/auth-dev.js';\nimport prismaPlugin from '../db/prisma.js';\nimport auth from './auth.js';\nimport cookies from './cookies.js';\n\nimport { newUser } from './__fixtures__/user.js';\n\ndescribe('dev login', () => {\n  let fastify: FastifyInstance;\n\n  beforeAll(async () => {\n    fastify = Fastify();\n\n    await fastify.register(cookies);\n    await fastify.register(auth);\n    await fastify.register(devAuth);\n    await fastify.register(prismaPlugin);\n    await checkCanConnectToDb(fastify.prisma);\n "
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\env.d.ts",
+    "snippet": "/// <reference path=\"../.astro/types.d.ts\" />\n/// <reference types=\"astro/client\" />\n\ninterface ImportMetaEnv {\n  GITHUB_SHA: string;\n  PUBLIC_API_URL: string;\n  PUBLIC_APP_URL: string;\n  PUBLIC_AVATAR_BASE_URL: string;\n  PUBLIC_EDITOR_APP_URL: string;\n  PUBLIC_COURSE_APP_URL: string;\n}\n\ninterface ImportMeta {\n  readonly env: ImportMetaEnv;\n}"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\api\\ai-roadmap.ts",
+    "snippet": "import { type APIContext } from 'astro';\nimport { api } from './api.ts';\n\nexport type GetAIRoadmapBySlugResponse = {\n  id: string;\n  term: string;\n  title: string;\n  data: string;\n  isAuthenticatedUser: boolean;\n};\n\nexport function aiRoadmapApi(context: APIContext) {\n  return {\n    getAIRoadmapBySlug: async function (roadmapSlug: string) {\n      return api(context).get<GetAIRoadmapBySlugResponse>(\n        `${import.meta.env.PUBLIC_API_URL}/v1-get-ai-roadmap-by-slug/${roadmapSlug}`,\n      );\n    },\n  };\n}\n\nexport interface AICourseDocument {\n  _id: string;\n  userId: string;\n  title: string;\n  slug?: string;\n  keyword: string;\n  difficulty: string;\n  data: string;\n  viewCount: number;\n  createdAt: Date;\n  updatedAt: Date;\n}"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\api\\api.ts",
+    "snippet": "import { TOKEN_COOKIE_NAME } from '../lib/jwt.ts';\nimport type { APIContext } from 'astro';\n\ntype HttpOptionsType = RequestInit | { headers: Record<string, any> };\n\ntype AppResponse = Record<string, any>;\n\nexport type FetchError = {\n  status: number;\n  message: string;\n};\n\nexport type AppError = {\n  status: number;\n  message: string;\n  errors?: { message: string; location: string }[];\n};\n\nexport type ApiReturn<ResponseType, ErrorType> = {\n  response?: ResponseType;\n  error?: ErrorType | FetchError;\n};\n\nexport function api(context: APIContext) {\n  const token = context.cookies.get(TOKEN_COOKIE_NAME)?.value;\n\n  async function apiCall<ResponseType = AppResponse, ErrorType = AppError>(\n    url: string,\n    options?: HttpOptionsType,\n  ): Promise<ApiReturn<ResponseType, ErrorType>> {\n    try {\n"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\api\\leaderboard.ts",
+    "snippet": "import { type APIContext } from 'astro';\nimport { api } from './api.ts';\n\nexport type LeaderboardUserDetails = {\n  id: string;\n  name: string;\n  avatar?: string;\n  count: number;\n};\n\nexport type ListLeaderboardStatsResponse = {\n  streaks: {\n    active: LeaderboardUserDetails[];\n    lifetime: LeaderboardUserDetails[];\n  };\n  projectSubmissions: {\n    currentMonth: LeaderboardUserDetails[];\n    lifetime: LeaderboardUserDetails[];\n  };\n  githubContributors: {\n    currentMonth: LeaderboardUserDetails[];\n  };\n  referrals: {\n    currentMonth: LeaderboardUserDetails[];\n    lifetime: LeaderboardUserDetails[];\n  };\n};\n\nexport function leaderboardApi(context: APIContext) {\n  return {\n    listLeaderboardStats: async function () {\n      return api(context).get<ListLeaderboardStatsResponse>(\n        `$"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\api\\project.ts",
+    "snippet": "import { type APIContext } from 'astro';\nimport { api } from './api.ts';\n\nexport function projectApi(context: APIContext) {\n  return {\n    listProjectsUserCount: async function (projectIds: string[]) {\n      return api(context).post<Record<string, number>>(\n        `${import.meta.env.PUBLIC_API_URL}/v1-list-projects-user-count`,\n        {\n          projectIds,\n        },\n      );\n    },\n  };\n}"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\api\\roadmap.ts",
+    "snippet": "import { type APIContext } from 'astro';\nimport { api } from './api.ts';\nimport type { RoadmapDocument } from '../components/CustomRoadmap/CreateRoadmap/CreateRoadmapModal.tsx';\nimport type { PageType } from '../components/CommandMenu/CommandMenu.tsx';\n\nexport type ListShowcaseRoadmapResponse = {\n  data: Pick<\n    RoadmapDocument,\n    | '_id'\n    | 'title'\n    | 'description'\n    | 'slug'\n    | 'creatorId'\n    | 'visibility'\n    | 'createdAt'\n    | 'topicCount'\n    | 'ratings'\n  >[];\n  totalCount: number;\n  totalPages: number;\n  currPage: number;\n  perPage: number;\n};\n\nexport function roadmapApi(context: APIContext) {\n  return {\n    listShowcaseRoadmap: async function () {\n      const searchParams = new URLSearchParams(context.url.searchParams);\n      return api(context).get<ListShowcaseRo"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\api\\user.ts",
+    "snippet": "import { type APIContext } from 'astro';\nimport { api } from './api.ts';\nimport type { ResourceType } from '../lib/resource-progress.ts';\nimport type { ProjectStatusDocument } from '../components/Projects/ListProjectSolutions.tsx';\n\nexport const allowedRoadmapVisibility = ['all', 'none', 'selected'] as const;\nexport type AllowedRoadmapVisibility =\n  (typeof allowedRoadmapVisibility)[number];\n\nexport const allowedCustomRoadmapVisibility = [\n  'all',\n  'none',\n  'selected',\n] as const;\nexport type AllowedCustomRoadmapVisibility =\n  (typeof allowedCustomRoadmapVisibility)[number];\n\nexport const allowedProfileVisibility = ['public', 'private'] as const;\nexport type AllowedProfileVisibility =\n  (typeof allowedProfileVisibility)[number];\n\nexport const allowedOnboardingStatus = ['done', 'pending'"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\helper\\download-image.ts",
+    "snippet": "type DownloadImageProps = {\n  url: string;\n  name: string;\n  extension?: 'png' | 'jpg';\n  scale?: number;\n};\n\nexport async function downloadImage({\n  url,\n  name,\n  extension = 'png',\n  scale = 1,\n}: DownloadImageProps) {\n  try {\n    const res = await fetch(url);\n    const svg = await res.text();\n\n    const image = `data:image/svg+xml;base64,${window.btoa(svg)}`;\n    const img = new Image();\n    img.src = image;\n    img.onload = () => {\n      const canvas = document.createElement('canvas');\n      canvas.width = img.width * scale;\n      canvas.height = img.height * scale;\n      const ctx = canvas.getContext('2d');\n      ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);\n      const png = canvas.toDataURL('image/png', 1.0); // Increase the quality by setting a higher value (0.0 - 1.0)\n "
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\helper\\generate-ai-course.ts",
+    "snippet": "import {\n  generateAiCourseStructure,\n  readStream,\n  type AiCourse,\n} from '../lib/ai';\nimport { queryClient } from '../stores/query-client';\nimport { aiLimitOptions } from '../queries/ai-course';\nimport type { QuestionAnswerChatMessage } from '../components/ContentGenerator/QuestionAnswerChat';\n\ntype GenerateCourseOptions = {\n  term: string;\n  slug?: string;\n  isForce?: boolean;\n  prompt?: string;\n  onCourseIdChange?: (courseId: string) => void;\n  onCourseSlugChange?: (courseSlug: string) => void;\n  onCourseChange?: (course: AiCourse, rawData: string) => void;\n  onLoadingChange?: (isLoading: boolean) => void;\n  onCreatorIdChange?: (creatorId: string) => void;\n  onError?: (error: string) => void;\n  src?: string;\n  questionAndAnswers?: QuestionAnswerChatMessage[];\n};\n\nexport async function"
+  },
+  {
+    "repo": "https://github.com/kamranahmedse/developer-roadmap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_494jxba9\\src\\helper\\generate-ai-guide.ts",
+    "snippet": "import { queryClient } from '../stores/query-client';\nimport { aiLimitOptions } from '../queries/ai-course';\nimport { readChatStream } from '../lib/chat';\nimport { markdownToHtmlWithHighlighting } from '../lib/markdown';\nimport type { QuestionAnswerChatMessage } from '../components/ContentGenerator/QuestionAnswerChat';\n\ntype GuideDetails = {\n  guideId: string;\n  guideSlug: string;\n  creatorId: string;\n  title: string;\n};\n\ntype GenerateGuideOptions = {\n  term: string;\n  slug?: string;\n  isForce?: boolean;\n  prompt?: string;\n  onGuideSlugChange?: (guideSlug: string) => void;\n  onGuideChange?: (guide: string) => void;\n  onLoadingChange?: (isLoading: boolean) => void;\n  onError?: (error: string) => void;\n  src?: string;\n  onHtmlChange?: (html: string) => void;\n  onStreamingChange?: (isStreamin"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nimport {parse as babelParse, ParseResult} from '@babel/parser';\nimport * as HermesParser from 'hermes-parser';\nimport * as t from '@babel/types';\nimport BabelPluginReactCompiler, {\n  CompilerError,\n  CompilerErrorDetail,\n  CompilerDiagnostic,\n  Effect,\n  ErrorCategory,\n  parseConfigPragmaForTests,\n  ValueKind,\n  type Hook,\n  PluginOptions,\n  CompilerPipelineValue,\n  parsePluginOptions,\n  printReactiveFunctionWithOutlined,\n  printFunctionWithOutlined,\n  type LoggerEvent,\n} from 'babel-plugin-react-compiler';\nimport {transformFromAstSync} from '@babel/core';\nimport type {\n  CompilerOutput,\n  CompilerTra"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+    "snippet": "function parseInput(\n  input: string,\n  language: 'flow' | 'typescript',\n): ParseResult<t.File> {\n  // Extract the first line to quickly check for custom test directives\n  if (language === 'flow') {\n    return HermesParser.parse(input, {\n      babel: true,\n      flow: 'all',\n      sourceType: 'module',\n      enableExperimentalComponentSyntax: true,\n    });\n  } else {\n    return babelParse(input, {\n      plugins: ['typescript', 'jsx'],\n      sourceType: 'module',\n    }) as ParseResult<t.File>;\n  }\n}"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+    "snippet": "function invokeCompiler(\n  source: string,\n  language: 'flow' | 'typescript',\n  options: PluginOptions,\n): CompilerTransformOutput {\n  const ast = parseInput(source, language);\n  let result = transformFromAstSync(ast, source, {\n    filename: '_playgroundFile.js',\n    highlightCode: false,\n    retainLines: true,\n    plugins: [[BabelPluginReactCompiler, options]],\n    ast: true,\n    sourceType: 'module',\n    configFile: false,\n    sourceMaps: true,\n    babelrc: false,\n  });\n  if (result?.ast == null || result?.code == null || result?.map == null) {\n    throw new Error('Expected successful compilation');\n  }\n  return {\n    code: result.code,\n    sourceMaps: result.map,\n    language,\n  };\n}"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+    "snippet": "const COMMON_HOOKS: Array<[string, Hook]> = [\n  [\n    'useFragment',\n    {\n      valueKind: ValueKind.Frozen,\n      effectKind: Effect.Freeze,\n      noAlias: true,\n      transitiveMixedData: true,\n    },\n  ],\n  [\n    'usePaginationFragment',\n    {\n      valueKind: ValueKind.Frozen,\n      effectKind: Effect.Freeze,\n      noAlias: true,\n      transitiveMixedData: true,\n    },\n  ],\n  [\n    'useRefetchableFragment',\n    {\n      valueKind: ValueKind.Frozen,\n      effectKind: Effect.Freeze,\n      noAlias: true,\n      transitiveMixedData: true,\n    },\n  ],\n  [\n    'useLazyLoadQuery',\n    {\n      valueKind: ValueKind.Frozen,\n      effectKind: Effect.Freeze,\n      noAlias: true,\n      transitiveMixedData: true,\n    },\n  ],\n  [\n    'usePreloadedQuery',\n    {\n      valueKind: ValueKind.Frozen,\n      "
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\compilation.ts",
+    "snippet": "function parseOptions(\n  source: string,\n  mode: 'compiler' | 'linter',\n  configOverrides: string,\n): PluginOptions {\n  // Extract the first line to quickly check for custom test directives\n  const pragma = source.substring(0, source.indexOf('\\n'));\n\n  const parsedPragmaOptions = parseConfigPragmaForTests(pragma, {\n    compilationMode: 'infer',\n    environment:\n      mode === 'linter'\n        ? {\n            // enabled in compiler\n            validateRefAccessDuringRender: false,\n            // enabled in linter\n            validateNoSetStateInRender: true,\n            validateNoSetStateInEffects: true,\n            validateNoJSXInTryStatements: true,\n            validateNoImpureFunctionsInRender: true,\n            validateStaticComponents: true,\n            validateNoFreezingKnownMutableFu"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\createContext.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nimport React from 'react';\n\n/**\n * Replacement to React.createContext.\n *\n * Does not take any default value and avoids non-null assertions when using\n * the value of the context, like the following scenario.\n *\n * ```ts\n * const StoreDispatchContext = useContext<Dispatch<ReducerAction>>(null);\n * const dispatchStore = useContext(StoreDispatchContext);\n * ...\n * dipatchStore!({ ... });\n * ```\n *\n * Instead, it throws an error when `useContext` is not called within a\n * Provider with a value.\n */\nexport default function createContext<T>(): {\n  useContext: () => NonNullable<T>;\n  Provider: React.Provide"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\defaultStore.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nimport type {Store} from './stores';"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\defaultStore.ts",
+    "snippet": "const index = `\\\nexport default function MyApp() {\n  return <div>Hello World</div>;\n}\n`;\n\nexport const defaultConfig = `\\\nimport type { PluginOptions } from 'babel-plugin-react-compiler/dist';\n\n({\n  //compilationMode: \"all\"\n} satisfies PluginOptions);`;\n\nexport const defaultStore: Store = {\n  source: index,\n  config: defaultConfig,\n  showInternals: false,\n};\n\nexport const emptyStore: Store = {\n  source: '',\n  config: '',\n  showInternals: false,\n};"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\reactCompilerMonacoDiagnostics.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nimport {Monaco} from '@monaco-editor/react';\nimport {\n  CompilerDiagnostic,\n  CompilerErrorDetail,\n  ErrorSeverity,\n} from 'babel-plugin-react-compiler';\nimport {MarkerSeverity, type editor} from 'monaco-editor';"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\reactCompilerMonacoDiagnostics.ts",
+    "snippet": "function mapReactCompilerSeverityToMonaco(\n  level: ErrorSeverity,\n  monaco: Monaco,\n): MarkerSeverity {\n  switch (level) {\n    case ErrorSeverity.Todo:\n      return monaco.MarkerSeverity.Warning;\n    default:\n      return monaco.MarkerSeverity.Error;\n  }\n}"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\reactCompilerMonacoDiagnostics.ts",
+    "snippet": "function mapReactCompilerDiagnosticToMonacoMarker(\n  detail: CompilerErrorDetail | CompilerDiagnostic,\n  monaco: Monaco,\n  source: string,\n): editor.IMarkerData | null {\n  const loc = detail.primaryLocation();\n  if (loc == null || typeof loc === 'symbol') {\n    return null;\n  }\n  const severity = mapReactCompilerSeverityToMonaco(detail.severity, monaco);\n  let message = detail.printErrorMessage(source, {eslint: true});\n  return {\n    severity,\n    message,\n    startLineNumber: loc.start.line,\n    startColumn: loc.start.column + 1,\n    endLineNumber: loc.end.line,\n    endColumn: loc.end.column + 1,\n  };\n}\n\ntype ReactCompilerMarkerConfig = {\n  monaco: Monaco;\n  model: editor.ITextModel;\n  details: Array<CompilerErrorDetail | CompilerDiagnostic>;\n  source: string;\n};"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\reactCompilerMonacoDiagnostics.ts",
+    "snippet": "let decorations: Array<string> = [];\nexport function renderReactCompilerMarkers({\n  monaco,\n  model,\n  details,\n  source,\n}: ReactCompilerMarkerConfig): void {\n  const markers: Array<editor.IMarkerData> = [];\n  for (const detail of details) {\n    const marker = mapReactCompilerDiagnosticToMonacoMarker(\n      detail,\n      monaco,\n      source,\n    );\n    if (marker == null) {\n      continue;\n    }\n    markers.push(marker);\n  }\n  if (markers.length > 0) {\n    monaco.editor.setModelMarkers(model, 'owner', markers);\n    const newDecorations = markers.map(marker => {\n      return {\n        range: new monaco.Range(\n          marker.startLineNumber,\n          marker.startColumn,\n          marker.endLineNumber,\n          marker.endColumn,\n        ),\n        options: {\n          isWholeLine: true,"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\transitionTypes.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nexport const CONFIG_PANEL_TRANSITION = 'config-panel';\nexport const TOGGLE_TAB_TRANSITION = 'toggle-tab';\nexport const TOGGLE_INTERNALS_TRANSITION = 'toggle-internals';\nexport const EXPAND_ACCORDION_TRANSITION = 'open-accordion';"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\types.d.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\n// v0.17.1\ndeclare module \"hermes-parser\" {\n  type HermesParserOptions = {\n    allowReturnOutsideFunction?: boolean;\n    babel?: boolean;\n    flow?: \"all\" | \"detect\";\n    enableExperimentalComponentSyntax?: boolean;\n    sourceFilename?: string;\n    sourceType?: \"module\" | \"script\" | \"unambiguous\";\n    tokens?: boolean;\n  };\n  export function parse(code: string, options: Partial<HermesParserOptions>);\n}"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\stores\\index.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nexport * from './messages';\nexport * from './store';"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\stores\\messages.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nexport enum MessageSource {\n  Babel,\n  Forget,\n  Playground,\n}\n\nexport enum MessageLevel {\n  Info,\n  Warning,\n  Error,\n}\n\nexport interface Message {\n  title: string;\n  level: MessageLevel;\n  source: MessageSource; // Can be used to further style messages differently.\n  codeframe: string | undefined;\n}\n\nexport function createMessage(\n  message: string,\n  level: MessageLevel,\n  source: MessageSource,\n): Message {\n  const [title, ...body] = message.split('\\n');\n  const codeframe = body.length > 0 ? body.join('\\n') : undefined;\n\n  return {\n    source,\n    level,\n    title,\n    codeframe,\n  };\n}"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\stores\\store.ts",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nimport invariant from 'invariant';\nimport {\n  compressToEncodedURIComponent,\n  decompressFromEncodedURIComponent,\n} from 'lz-string';\nimport {defaultStore, defaultConfig} from '../defaultStore';\n\n/**\n * Global Store for Playground\n */\nexport interface Store {\n  source: string;\n  config: string;\n  showInternals: boolean;\n}\nexport function encodeStore(store: Store): string {\n  return compressToEncodedURIComponent(JSON.stringify(store));\n}\nexport function decodeStore(hash: string): any {\n  return JSON.parse(decompressFromEncodedURIComponent(hash));\n}\n\n/**\n * Serialize, encode, and save @param store to lo"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\apps\\playground\\lib\\stores\\store.ts",
+    "snippet": "function isValidStore(raw: unknown): raw is Store {\n  return (\n    raw != null &&\n    typeof raw == 'object' &&\n    'source' in raw &&\n    typeof raw['source'] === 'string'\n  );\n}\n\n/**\n * Deserialize, decode, and initialize @param store from URL and then\n * localStorage. Throw an error if Store is malformed.\n */\nexport function initStoreFromUrlOrLocalStorage(): Store {\n  const encodedSourceFromUrl = location.hash.slice(1);\n  const encodedSourceFromLocal = localStorage.getItem('playgroundStore');\n  const encodedSource = encodedSourceFromUrl || encodedSourceFromLocal;\n\n  /**\n   * No data in the URL and no data in the localStorage to fallback to.\n   * Initialize with the default store.\n   */\n  if (!encodedSource) return defaultStore;\n\n  const raw: any = decodeStore(encodedSource);\n\n  invarian"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\packages\\babel-plugin-react-compiler\\jest.config.js",
+    "snippet": "/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\n/** @type {import('jest').Config} */"
+  },
+  {
+    "repo": "https://github.com/facebook/react",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_mg6h0jvr\\compiler\\packages\\babel-plugin-react-compiler\\jest.config.js",
+    "snippet": "const config = {\n  projects: ['<rootDir>/scripts/jest/*.config.js'],\n};\n\nmodule.exports = config;"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\gen\\java\\org\\tensorflow\\processor\\OperatorProcessor.java",
+    "snippet": "/* Copyright 2017 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow.processor;\n\nimport com.google.common.base.CaseFormat;\nimport com.google.common.base.Strings;\nimport com.goo"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\AbstractOperation.java",
+    "snippet": "/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\n/**\n * Base class for {@link Operation} implementations.\n *\n * <p>As opposed to {@link Operation} itself,"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\DataType.java",
+    "snippet": "/* Copyright 2016 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\nimport java.util.HashMap;\nimport java.util.Map;\n\nimport org.tensorflow.types.UInt8;\n\n/** Represents the t"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\EagerOperation.java",
+    "snippet": "/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\nimport java.util.concurrent.atomic.AtomicReferenceArray;\n\n/**\n * Implementation of an {@link Operation} e"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\EagerOperationBuilder.java",
+    "snippet": "/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\nimport java.nio.charset.Charset;\nimport java.nio.charset.StandardCharsets;\n\n/**\n * An {@link OperationBui"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\EagerSession.java",
+    "snippet": "/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\nimport java.lang.ref.PhantomReference;\nimport java.lang.ref.Reference;\nimport java.lang.ref.ReferenceQueu"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\ExecutionEnvironment.java",
+    "snippet": "/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\n/** Defines an environment for creating and executing TensorFlow {@link Operation}s. */\npublic interface "
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\Graph.java",
+    "snippet": "/* Copyright 2016 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\nimport java.util.Iterator;\n\n/**\n * A data flow graph representing a TensorFlow computation.\n *\n * <p>Inst"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\GraphOperation.java",
+    "snippet": "/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\n/**\n * Implementation for an {@link Operation} added as a node to a {@link Graph}.\n *\n * <p>GraphOperatio"
+  },
+  {
+    "repo": "https://github.com/tensorflow/tensorflow",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_v6eil7ii\\tensorflow\\java\\src\\main\\java\\org\\tensorflow\\GraphOperationBuilder.java",
+    "snippet": "/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n==============================================================================*/\n\npackage org.tensorflow;\n\nimport java.nio.charset.Charset;\n\n/** An {@link OperationBuilder} for adding {@link GraphOperation}s to a"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\playground\\playground.js",
+    "snippet": "// Import any algorithmic dependencies you need for your playground code here.\nimport factorial from '../algorithms/math/factorial/factorial';\n\n// Write your playground code inside the playground() function.\n// Test your code from __tests__/playground.test.js\n// Launch playground tests by running: npm test -- 'playground'"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\playground\\playground.js",
+    "snippet": "function playground() {\n  // Replace the next line with your playground code.\n  return factorial(5);\n}\n\nexport default playground;"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\sorting\\Sort.js",
+    "snippet": "import Comparator from '../../utils/comparator/Comparator';\n\n/**\n * @typedef {Object} SorterCallbacks\n * @property {function(a: *, b: *)} compareCallback - If provided then all elements comparisons\n *  will be done through this callback.\n * @property {function(a: *)} visitingCallback - If provided it will be called each time the sorting\n *  function is visiting the next element.\n */\n\nexport default class Sort {\n  constructor(originalCallbacks) {\n    this.callbacks = Sort.initSortingCallbacks(originalCallbacks);\n    this.comparator = new Comparator(this.callbacks.compareCallback);\n  }\n\n  /**\n   * @param {SorterCallbacks} originalCallbacks\n   * @returns {SorterCallbacks}\n   */\n  static initSortingCallbacks(originalCallbacks) {\n    const callbacks = originalCallbacks || {};\n    const stubCall"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\sorting\\SortTester.js",
+    "snippet": "export const sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];\nexport const reverseArr = [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];\nexport const notSortedArr = [15, 8, 5, 12, 10, 1, 16, 9, 11, 7, 20, 3, 2, 6, 17, 18, 4, 13, 14, 19];\nexport const equalArr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];\nexport const negativeArr = [-1, 0, 5, -10, 20, 13, -7, 3, 2, -3];\nexport const negativeArrSorted = [-10, -7, -3, -1, 0, 2, 3, 5, 13, 20];\n\nexport class SortTester {\n  static testSort(SortingClass) {\n    const sorter = new SortingClass();\n\n    expect(sorter.sort([])).toEqual([]);\n    expect(sorter.sort([1])).toEqual([1]);\n    expect(sorter.sort([1, 2])).toEqual([1, 2]);\n    expect(sorter.sort([2, 1])).toEqual([1, "
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\caesar-cipher\\caesarCipher.js",
+    "snippet": "// Create alphabet array: ['a', 'b', 'c', ..., 'z']."
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\caesar-cipher\\caesarCipher.js",
+    "snippet": "const englishAlphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');\n\n/**\n * Generates a cipher map out of the alphabet.\n * Example with a shift 3: {'a': 'd', 'b': 'e', 'c': 'f', ...}\n *\n * @param {string[]} alphabet - i.e. ['a', 'b', 'c', ... , 'z']\n * @param {number} shift - i.e. 3\n * @return {Object} - i.e. {'a': 'd', 'b': 'e', 'c': 'f', ..., 'z': 'c'}\n */"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\caesar-cipher\\caesarCipher.js",
+    "snippet": "const getCipherMap = (alphabet, shift) => {\n  return alphabet\n    .reduce((charsMap, currentChar, charIndex) => {\n      const charsMapClone = { ...charsMap };\n      // Making the shift to be cyclic (i.e. with a shift of 1 - 'z' would be mapped to 'a').\n      let encryptedCharIndex = (charIndex + shift) % alphabet.length;\n      // Support negative shifts for creating a map for decryption\n      // (i.e. with shift -1 - 'a' would be mapped to 'z').\n      if (encryptedCharIndex < 0) {\n        encryptedCharIndex += alphabet.length;\n      }\n      charsMapClone[currentChar] = alphabet[encryptedCharIndex];\n      return charsMapClone;\n    }, {});\n};\n\n/**\n * @param {string} str\n * @param {number} shift\n * @param {string[]} alphabet\n * @return {string}\n */\nexport const caesarCipherEncrypt = (str, shi"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\hill-cipher\\hillCipher.js",
+    "snippet": "import * as mtrx from '../../math/matrix/Matrix';\n\n// The code of an 'A' character (equals to 65)."
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\hill-cipher\\hillCipher.js",
+    "snippet": "const alphabetCodeShift = 'A'.codePointAt(0);"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\hill-cipher\\hillCipher.js",
+    "snippet": "const englishAlphabetSize = 26;\n\n/**\n * Generates key matrix from given keyString.\n *\n * @param {string} keyString - a string to build a key matrix (must be of matrixSize^2 length).\n * @return {number[][]} keyMatrix\n */"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\hill-cipher\\hillCipher.js",
+    "snippet": "const generateKeyMatrix = (keyString) => {\n  const matrixSize = Math.sqrt(keyString.length);\n  if (!Number.isInteger(matrixSize)) {\n    throw new Error(\n      'Invalid key string length. The square root of the key string must be an integer',\n    );\n  }\n  let keyStringIndex = 0;\n  return mtrx.generate(\n    [matrixSize, matrixSize],\n    // Callback to get a value of each matrix cell.\n    // The order the matrix is being filled in is from left to right, from top to bottom.\n    () => {\n      // A → 0, B → 1, ..., a → 32, b → 33, ...\n      const charCodeShifted = (keyString.codePointAt(keyStringIndex)) % alphabetCodeShift;\n      keyStringIndex += 1;\n      return charCodeShifted;\n    },\n  );\n};\n\n/**\n * Generates a message vector from a given message.\n *\n * @param {string} message - the message t"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\hill-cipher\\hillCipher.js",
+    "snippet": "const generateMessageVector = (message) => {\n  return mtrx.generate(\n    [message.length, 1],\n    // Callback to get a value of each matrix cell.\n    // The order the matrix is being filled in is from left to right, from top to bottom.\n    (cellIndices) => {\n      const rowIndex = cellIndices[0];\n      return message.codePointAt(rowIndex) % alphabetCodeShift;\n    },\n  );\n};\n\n/**\n * Encrypts the given message using Hill Cipher.\n *\n * @param {string} message plaintext\n * @param {string} keyString\n * @return {string} cipherString\n */\nexport function hillCipherEncrypt(message, keyString) {\n  // The keyString and message can only contain letters.\n  const onlyLettersRegExp = /^[a-zA-Z]+$/;\n  if (!onlyLettersRegExp.test(message) || !onlyLettersRegExp.test(keyString)) {\n    throw new Error('The me"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\polynomial-hash\\PolynomialHash.js",
+    "snippet": "const DEFAULT_BASE = 37;"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\polynomial-hash\\PolynomialHash.js",
+    "snippet": "const DEFAULT_MODULUS = 101;\n\nexport default class PolynomialHash {\n  /**\n   * @param {number} [base] - Base number that is used to create the polynomial.\n   * @param {number} [modulus] - Modulus number that keeps the hash from overflowing.\n   */\n  constructor({ base = DEFAULT_BASE, modulus = DEFAULT_MODULUS } = {}) {\n    this.base = base;\n    this.modulus = modulus;\n  }\n\n  /**\n   * Function that creates hash representation of the word.\n   *\n   * Time complexity: O(word.length).\n   *\n   * @param {string} word - String that needs to be hashed.\n   * @return {number}\n   */\n  hash(word) {\n    const charCodes = Array.from(word).map((char) => this.charToNumber(char));\n\n    let hash = 0;\n    for (let charIndex = 0; charIndex < charCodes.length; charIndex += 1) {\n      hash *= this.base;\n      has"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\polynomial-hash\\SimplePolynomialHash.js",
+    "snippet": "const DEFAULT_BASE = 17;\n\nexport default class SimplePolynomialHash {\n  /**\n   * @param {number} [base] - Base number that is used to create the polynomial.\n   */\n  constructor(base = DEFAULT_BASE) {\n    this.base = base;\n  }\n\n  /**\n   * Function that creates hash representation of the word.\n   *\n   * Time complexity: O(word.length).\n   *\n   * @assumption: This version of the function  doesn't use modulo operator.\n   * Thus it may produce number overflows by generating numbers that are\n   * bigger than Number.MAX_SAFE_INTEGER. This function is mentioned here\n   * for simplicity and LEARNING reasons.\n   *\n   * @param {string} word - String that needs to be hashed.\n   * @return {number}\n   */\n  hash(word) {\n    let hash = 0;\n    for (let charIndex = 0; charIndex < word.length; charIndex += 1"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\rail-fence-cipher\\railFenceCipher.js",
+    "snippet": "/**\n * @typedef {string[]} Rail\n * @typedef {Rail[]} Fence\n * @typedef {number} Direction\n */\n\n/**\n * @constant DIRECTIONS\n * @type {object}\n * @property {Direction} UP\n * @property {Direction} DOWN\n */"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\rail-fence-cipher\\railFenceCipher.js",
+    "snippet": "const DIRECTIONS = { UP: -1, DOWN: 1 };\n\n/**\n * Builds a fence with a specific number of rows.\n *\n * @param {number} rowsNum\n * @returns {Fence}\n */"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\rail-fence-cipher\\railFenceCipher.js",
+    "snippet": "const buildFence = (rowsNum) => Array(rowsNum)\n  .fill(null)\n  .map(() => []);\n\n/**\n * Get next direction to move (based on the current one) while traversing the fence.\n *\n * @param {object} params\n * @param {number} params.railCount - Number of rows in the fence\n * @param {number} params.currentRail - Current row that we're visiting\n * @param {Direction} params.direction - Current direction\n * @returns {Direction} - The next direction to take\n */"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\rail-fence-cipher\\railFenceCipher.js",
+    "snippet": "const getNextDirection = ({ railCount, currentRail, direction }) => {\n  switch (currentRail) {\n    case 0:\n      // Go down if we're on top of the fence.\n      return DIRECTIONS.DOWN;\n    case railCount - 1:\n      // Go up if we're at the bottom of the fence.\n      return DIRECTIONS.UP;\n    default:\n      // Continue with the same direction if we're in the middle of the fence.\n      return direction;\n  }\n};\n\n/**\n * @param {number} targetRailIndex\n * @param {string} letter\n * @returns {Function}\n */"
+  },
+  {
+    "repo": "https://github.com/trekhleb/javascript-algorithms",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_j5781kzc\\src\\algorithms\\cryptography\\rail-fence-cipher\\railFenceCipher.js",
+    "snippet": "const addCharToRail = (targetRailIndex, letter) => {\n  /**\n   * Given a rail, adds a char to it if it matches a targetIndex.\n   *\n   * @param {Rail} rail\n   * @param {number} currentRail\n   * @returns {Rail}\n   */\n  function onEachRail(rail, currentRail) {\n    return currentRail === targetRailIndex\n      ? [...rail, letter]\n      : rail;\n  }\n  return onEachRail;\n};\n\n/**\n * Hangs the characters on the fence.\n *\n * @param {object} params\n * @param {Fence} params.fence\n * @param {number} params.currentRail\n * @param {Direction} params.direction\n * @param {string[]} params.chars\n * @returns {Fence}\n */"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap alert.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport BaseComponent from './base-component.js'\nimport EventHandler from './dom/event-handler.js'\nimport { enableDismissTrigger } from './util/component-functions.js'\nimport { defineJQueryPlugin } from './util/index.js'\n\n/**\n * Constants\n */"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "const NAME = 'alert'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "const DATA_KEY = 'bs.alert'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "const EVENT_KEY = `.${DATA_KEY}`"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "const EVENT_CLOSE = `close${EVENT_KEY}`"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "const EVENT_CLOSED = `closed${EVENT_KEY}`"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "const CLASS_NAME_FADE = 'fade'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "const CLASS_NAME_SHOW = 'show'\n\n/**\n * Class definition\n */"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\alert.js",
+    "snippet": "class Alert extends BaseComponent {\n  // Getters\n  static get NAME() {\n    return NAME\n  }\n\n  // Public\n  close() {\n    const closeEvent = EventHandler.trigger(this._element, EVENT_CLOSE)\n\n    if (closeEvent.defaultPrevented) {\n      return\n    }\n\n    this._element.classList.remove(CLASS_NAME_SHOW)\n\n    const isAnimated = this._element.classList.contains(CLASS_NAME_FADE)\n    this._queueCallback(() => this._destroyElement(), this._element, isAnimated)\n  }\n\n  // Private\n  _destroyElement() {\n    this._element.remove()\n    EventHandler.trigger(this._element, EVENT_CLOSED)\n    this.dispose()\n  }\n\n  // Static\n  static jQueryInterface(config) {\n    return this.each(function () {\n      const data = Alert.getOrCreateInstance(this)\n\n      if (typeof config !== 'string') {\n        return\n      }\n\n  "
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\base-component.js",
+    "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap base-component.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport Data from './dom/data.js'\nimport EventHandler from './dom/event-handler.js'\nimport Config from './util/config.js'\nimport { executeAfterTransition, getElement } from './util/index.js'\n\n/**\n * Constants\n */"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\base-component.js",
+    "snippet": "const VERSION = '5.3.8'\n\n/**\n * Class definition\n */"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\base-component.js",
+    "snippet": "class BaseComponent extends Config {\n  constructor(element, config) {\n    super()\n\n    element = getElement(element)\n    if (!element) {\n      return\n    }\n\n    this._element = element\n    this._config = this._getConfig(config)\n\n    Data.set(this._element, this.constructor.DATA_KEY, this)\n  }\n\n  // Public\n  dispose() {\n    Data.remove(this._element, this.constructor.DATA_KEY)\n    EventHandler.off(this._element, this.constructor.EVENT_KEY)\n\n    for (const propertyName of Object.getOwnPropertyNames(this)) {\n      this[propertyName] = null\n    }\n  }\n\n  // Private\n  _queueCallback(callback, element, isAnimated = true) {\n    executeAfterTransition(callback, element, isAnimated)\n  }\n\n  _getConfig(config) {\n    config = this._mergeConfigObj(config, this._element)\n    config = this._configAfterMer"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "/**\n * --------------------------------------------------------------------------\n * Bootstrap button.js\n * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)\n * --------------------------------------------------------------------------\n */\n\nimport BaseComponent from './base-component.js'\nimport EventHandler from './dom/event-handler.js'\nimport { defineJQueryPlugin } from './util/index.js'\n\n/**\n * Constants\n */"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "const NAME = 'button'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "const DATA_KEY = 'bs.button'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "const EVENT_KEY = `.${DATA_KEY}`"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "const DATA_API_KEY = '.data-api'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "const CLASS_NAME_ACTIVE = 'active'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "const SELECTOR_DATA_TOGGLE = '[data-bs-toggle=\"button\"]'"
+  },
+  {
+    "repo": "https://github.com/twbs/bootstrap",
+    "file": "C:\\Users\\Acer\\AppData\\Local\\Temp\\repo_exm31ldb\\js\\src\\button.js",
+    "snippet": "const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`\n\n/**\n * Class definition\n */"
+  }
+]
