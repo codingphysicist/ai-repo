@@ -18,7 +18,26 @@ def print_health(r):
     print(f"Health score: {r.get('health_score')}")
     for k,v in r.get("breakdown", {}).items():
         print(f"  {k:20s}: {v}")
+    # optional descriptions (if present)
+    desc = r.get("descriptions", {})
+    if desc:
+        print("\nInterpretation:")
+        if desc.get("overall"):
+            print(" ", desc.get("overall"))
+        # print per-metric short lines
+        mapping = [
+            ("commits", "Commits"),
+            ("issues", "Issues"),
+            ("popularity", "Popularity"),
+            ("code_quality", "Code quality"),
+            ("contributors", "Contributors"),
+            ("maintenance", "Maintenance")
+        ]
+        for key, label in mapping:
+            if desc.get(key):
+                print(f"  {label:12s}: {desc.get(key)}")
     print("="*60)
+
 
 def print_complexity(r):
     comp = r.get("complexity", {})
