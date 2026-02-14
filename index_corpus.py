@@ -4,18 +4,19 @@ from utils import clone_repo, cleanup_repo, find_code_files, ext_to_lang, chunk_
 import numpy as np
 from tqdm import tqdm
 import time
-
+# suffering is permanent, import is temporary
 CORPUS_LIST = "corpus_list.txt"
 OUT_PREFIX = "corpus_index"
-MAX_CHUNKS_PER_REPO = int(os.getenv("MAX_CHUNKS_PER_REPO", "30"))  # default much lower
+MAX_CHUNKS_PER_REPO = int(os.getenv("MAX_CHUNKS_PER_REPO", "30"))
 MAX_FILES_PER_REPO = int(os.getenv("MAX_FILES_PER_REPO", "20"))
 SOURCE_FOLDER_WHITELIST = ["src", "lib", "app", "packages", "backend", "frontend"]
 SKIP_FOLDERS = ["node_modules", "venv", ".venv", "build", "dist", "docs", "examples", "test", "tests"]
 
-# cost estimate params (text-embedding-3-small pricing)
+# constants for the calculation of cost [going to use open source model in future] 
 EST_AVG_TOKENS_PER_CHUNK = int(os.getenv("EST_AVG_TOKENS_PER_CHUNK", "350"))
 PRICE_PER_1M_TOKENS = float(os.getenv("PRICE_PER_1M_TOKENS", "0.02"))
 
+# a filter to determine is it actual code or a beginner pizza making guide
 def file_in_whitelist(fp):
     lp = fp.replace("\\", "/").lower()
     for bad in SKIP_FOLDERS:
@@ -27,6 +28,7 @@ def file_in_whitelist(fp):
     # accept small top-level modules, but skip very long paths
     return False
 
+# To read the popular repo i gave in corpus_list.txt, its my choice to choose the repos
 def read_corpus_list(path):
     if not os.path.exists(path):
         print(f"[ERROR] corpus list not found at '{path}'")
@@ -35,11 +37,16 @@ def read_corpus_list(path):
         lines = [l.strip() for l in f if l.strip() and not l.strip().startswith("#")]
     return lines
 
+# for calculation of estimated cost before running, so i can save few dollars and eat pizza
 def estimate_cost(total_chunks):
     total_tokens = total_chunks * EST_AVG_TOKENS_PER_CHUNK
     cost = (total_tokens / 1_000_000) * PRICE_PER_1M_TOKENS
     return total_tokens, round(cost, 6)
 
+# Ok so the main logic is here 
+# This work twice first for the calculation of cost and then send data for indexing to the model
+# Going for a chai break
+# I am back, i would suggest you to not buy acer predator it really sucks
 def build_corpus_index(corpus_list_file=CORPUS_LIST, out_prefix=OUT_PREFIX):
     repos = read_corpus_list(corpus_list_file)
     if not repos:
@@ -47,7 +54,7 @@ def build_corpus_index(corpus_list_file=CORPUS_LIST, out_prefix=OUT_PREFIX):
         return
     total_repos = len(repos)
     print(f"[INFO] Starting indexing of {total_repos} repos (max {MAX_CHUNKS_PER_REPO} chunks/repo, max {MAX_FILES_PER_REPO} files/repo)")
-    # first pass: pre-scan chunks to estimate cost (cheap, no network except clone)
+    # First pass for cost estimation
     estimated_total_chunks = 0
     repo_chunks_preview = {}
     for i, repo in enumerate(repos, 1):
@@ -96,7 +103,7 @@ def build_corpus_index(corpus_list_file=CORPUS_LIST, out_prefix=OUT_PREFIX):
     print("[INFO] If estimate looks okay, indexing will proceed. Press Ctrl+C now to abort.")
     time.sleep(2)
 
-    # second pass: actual embedding & build index
+    # from here the indexing starts, only if you are satisfied by the code and can save few bucks for pizza 
     metas = []
     vectors = []
     try:
@@ -179,3 +186,5 @@ if __name__ == "__main__":
     except Exception as e:
         print("[FATAL] indexer crashed:", e)
         raise
+# Finally its done cant believe i wrote this in just 4 hours excluding chai and pizza break
+# I should take the ai job atp

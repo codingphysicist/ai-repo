@@ -1,13 +1,3 @@
-#!/usr/bin/env python3
-"""
-analyze_repo.py
-
-Usage:
-  python analyze_repo.py https://github.com/owner/repo --out report.json
-
-This script writes a UTF-8 JSON file (portable) and prints progress to stderr
-via logging so stdout remains clean.
-"""
 import sys
 import json
 import os
@@ -25,6 +15,52 @@ from utils import (
 )
 
 from tqdm import tqdm
+
+# How to give scoress
+def desc_for_commits(score):
+    if score >= 80: return "Very active — frequent commits in the past month."
+    if score >= 40: return "Moderately active — occasional updates."
+    return "Low activity — few or no recent commits."
+
+def desc_for_issues(score):
+    if score >= 90: return "Excellent issue handling — most reported issues get closed."
+    if score >= 60: return "Decent issue handling — some backlog may exist."
+    return "Poor issue handling — many open issues or slow responses."
+
+def desc_for_popularity(score):
+    if score >= 80: return "Widely used and popular."
+    if score >= 40: return "Some community interest."
+    if score > 0: return "Low visibility; early-stage or niche."
+    return "No public interest (no stars)."
+
+def desc_for_code_quality(score):
+    if score >= 90: return "Very clean code — easy to maintain."
+    if score >= 70: return "Good code quality with room for improvement."
+    if score >= 40: return "Average code quality — consider refactoring key modules."
+    return "Poor code quality — high complexity and maintenance risk."
+
+def desc_for_contributors(score):
+    if score >= 80: return "Large, active contributor community."
+    if score >= 40: return "Some outside contributors."
+    if score > 0: return "Very few contributors; mostly single-owner."
+    return "No contributors."
+
+def desc_for_maintenance(score):
+    if score >= 80: return "Active merging and PR acceptance."
+    if score >= 40: return "Moderate PR acceptance."
+    return "Low PR merge activity — maintainers may not accept contributions."
+
+def describe_health(health_score):
+    if health_score >= 80:
+        return "Excellent health — active, popular, and well-maintained."
+    if health_score >= 60:
+        return "Good health — actively maintained with decent community support."
+    if health_score >= 40:
+        return "Average health — technically okay but limited activity or adoption."
+    if health_score >= 20:
+        return "Poor health — risky to depend on; consider alternatives or contribute."
+    return "Very poor health — not recommended for production use."
+# ------------------------------------------------
 
 # CLI / defaults
 DEFAULT_INDEX_PREFIX = os.getenv("INDEX_PREFIX", "corpus_index")
@@ -150,11 +186,37 @@ def analyze(repo_url, out_path="report.json", index_prefix=DEFAULT_INDEX_PREFIX,
         }
         health_score, breakdown = compute_health_score(signals)
 
+        # Make complexity filenames relative (portable)
+        base = Path(tmp)
+        comp_funcs = complexity.get("functions", [])
+        for f in comp_funcs:
+            fp = f.get("filename", "")
+            if not fp:
+                continue
+            try:
+                rel = str(Path(fp).relative_to(base))
+            except Exception:
+                rel = Path(fp).name
+            f["filename"] = rel
+        complexity["functions"] = comp_funcs
+
+        # build human-readable descriptions from breakdown
+        descriptions = {
+            "commits": desc_for_commits(breakdown.get("commits_score", 0)),
+            "issues": desc_for_issues(breakdown.get("issue_score", 0)),
+            "popularity": desc_for_popularity(breakdown.get("popularity_score", 0)),
+            "code_quality": desc_for_code_quality(breakdown.get("code_quality_score", 0)),
+            "contributors": desc_for_contributors(breakdown.get("contributor_score", 0)),
+            "maintenance": desc_for_maintenance(breakdown.get("maintenance_score", 0)),
+            "overall": describe_health(health_score)
+        }
+
         # Build final report object
         report = {
             "repo": api_info.get("full_name"),
             "health_score": health_score,
             "breakdown": breakdown,
+            "descriptions": descriptions,
             "complexity": complexity,
             "similarity": similarity_results  # post-filtering / thresholding can be applied by consumer
         }
@@ -163,8 +225,11 @@ def analyze(repo_url, out_path="report.json", index_prefix=DEFAULT_INDEX_PREFIX,
         out_dir = Path(out_path).parent
         if out_dir and not out_dir.exists():
             out_dir.mkdir(parents=True, exist_ok=True)
-        with open(out_path, "w", encoding="utf-8") as fh:
+        # write to temporary file then atomically replace to avoid partial writes
+        tmp_out = str(Path(out_path).with_suffix(".tmp.json"))
+        with open(tmp_out, "w", encoding="utf-8") as fh:
             json.dump(report, fh, ensure_ascii=False, indent=2)
+        os.replace(tmp_out, out_path)
         log.info("Wrote report to %s (UTF-8).", out_path)
         return report
     finally:
