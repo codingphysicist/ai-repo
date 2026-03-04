@@ -3,3 +3,12 @@ temp1.py
 temp3.py
 venv/
 .env
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.npy
+*.index
+*.meta.json
+report.json
+summary.json
